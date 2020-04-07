@@ -21,7 +21,6 @@ function Square(props) {
       );
     }
 
-  
     render() {
       
       return (
