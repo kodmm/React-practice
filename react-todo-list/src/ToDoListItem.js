@@ -6,7 +6,7 @@ class ToDoListItem extends Component {
         const {
             title,
             description,
-            ...props 
+            ...props
         } = this.props;
 
         return(
