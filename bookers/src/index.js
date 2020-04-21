@@ -37,8 +37,10 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Books: JSON.parse(localStorage.getItem("Books")) || []
-    }
+      Books: JSON.parse(localStorage.getItem("Books")) || [],
+      id: 1,
+    };
+
 
   }
 
@@ -50,6 +52,7 @@ class Index extends React.Component {
       () => {
         //localStorageにBooks stgateを保存
         localStorage.setItem("Books", JSON.stringify(this.state.Books))
+    
       }
     )
   }
@@ -64,7 +67,7 @@ class Index extends React.Component {
               <table className="table" border="1">
                 <thead>
                   <tr>
-                    
+                    <th>ID</th>
                     <th>Title</th>
                     <th>Body</th>
                     <th></th>
@@ -74,14 +77,14 @@ class Index extends React.Component {
                   {/* Books配列の要素数分のItemsコンポーネントを展開 */}
                   {this.state.Books.map(Book => (
                     <Item 
+                        key={Book.id}
                         title={Book.title}
                         description={Book.description}
-                        key={Book.title}
-
                         //クリックれたItemをBooksから削除
                         onClick={() => this.removeItem(Book)}
                     />
-                  ))}
+                  )
+                  )}
                 </tbody>
               </table>
             </section>
@@ -103,10 +106,13 @@ class Index extends React.Component {
                 //Books stateに追加
                 this.setState(
                   {
+                    id: this.state.id + 1,
                     Books: this.state.Books.concat({
+                      id: this.state.id,
                       title: titleElement.value,
                       description: descriptionElement.value
                     })
+                   
                   },
                   //stateの変更後に入力した値を空にする
                   () => {
