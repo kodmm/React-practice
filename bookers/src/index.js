@@ -9,6 +9,7 @@ const App = () => (
     <div>
       <Route exact path="/" component={Home} />
       <Route path="/books" component={Index} />
+      
     </div>
   </BrowserRouter>
 )
@@ -38,13 +39,28 @@ class Index extends React.Component {
     super(props);
     this.state = {
       Books: JSON.parse(localStorage.getItem("Books")) || [],
-      id: 1,
+      id: JSON.parse(localStorage.getItem("id")) || 1,
     };
 
 
   }
 
-  removeItem(item) {
+  addItem = (item, callBack) => {
+    this.setState({
+      Books: this.state.Books.concat(item),
+      id: this.state.id + 1
+    },
+    () => {
+      //localStrageにtodoList stateを保存
+      localStorage.setItem("Books", JSON.stringify(this.state.Books))
+      
+      //callBack関数が引数に渡されていた場合に実行
+      callBack && callBack()
+    }
+    )
+  }
+
+  removeItem = (item, callBack) => {
     this.setState(
       {
         Books: this.state.Books.filter(x => x !== item)
@@ -52,7 +68,10 @@ class Index extends React.Component {
       () => {
         //localStorageにBooks stgateを保存
         localStorage.setItem("Books", JSON.stringify(this.state.Books))
-    
+        //callBack関数が引数に渡されていた場合に実行
+        callBack && callBack()
+       
+
       }
     )
   }
@@ -77,12 +96,15 @@ class Index extends React.Component {
                   {/* Books配列の要素数分のItemsコンポーネントを展開 */}
                   {this.state.Books.map(Book => (
                     <Item 
-                        key={Book.id}
+                        key={Book.id.toString()}
+                        id={Book.id}
                         title={Book.title}
                         description={Book.description}
                         //クリックれたItemをBooksから削除
                         onClick={() => this.removeItem(Book)}
+                      
                     />
+                  
                   )
                   )}
                 </tbody>
@@ -104,23 +126,17 @@ class Index extends React.Component {
                 const descriptionElement = e.target.elements["description"];
 
                 //Books stateに追加
-                this.setState(
-                  {
-                    id: this.state.id + 1,
-                    Books: this.state.Books.concat({
-                      id: this.state.id,
-                      title: titleElement.value,
-                      description: descriptionElement.value
-                    })
-                   
-                  },
-                  //stateの変更後に入力した値を空にする
-                  () => {
-                    titleElement.value ="";
-                    descriptionElement.value ="";
-                    localStorage.setItem("Books", JSON.stringify(this.state.Books))
-                  }
-                )
+               this.addItem({
+                 id: this.state.id,
+                 title: titleElement.value,
+                 description: descriptionElement.value
+               },
+               () => {
+                 //stateの変更後に入力した値を空にする
+                 titleElement.value = "";
+                 descriptionElement.value = "";
+               }
+               )
               }}
             >
               <div>
