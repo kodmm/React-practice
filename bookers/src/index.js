@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 import Item from "./Item.js"
 import './index.css'
+import OneBook from './Show.js'
+
 
 const App = () => (
   <BrowserRouter>
     <div>
       <Route exact path="/" component={Home} />
-      <Route path="/books" component={Index} />
-      
+      <Route exact path="/books" component={Index} />
+      <Route path="/books/:id" component={OneBook} />
     </div>
   </BrowserRouter>
 )
@@ -34,7 +36,7 @@ const Home = () => {
   );
 }
 
-class Index extends React.Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -163,6 +165,8 @@ class Index extends React.Component {
     )
   }
 }
+
+
 
 
 
