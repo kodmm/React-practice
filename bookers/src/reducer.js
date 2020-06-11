@@ -28,7 +28,7 @@ export default function reducer(state = initialState, action) {
         case 'CHANGE_DESCRIPTION':
             return {
                 ...state,
-                title: action.description
+                description: action.description
             }
             /* Delete book */
         case 'DELETE_BOOK':
