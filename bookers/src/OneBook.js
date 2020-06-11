@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { mapStateToProps } from './action.js';
 
 class OneBook extends Component {
     render() {
-        const {
-            title,
-            description,
-            id,
-        } = this.props.location.state
         console.log(this.props)
-        //const params = this.props.match
-        //const id = parseInt(params.params.id, 10)
-        //const book = this.props.Books.filter(e => e.id === id)[0]
         return(
             <div className="container row">
                 <div className="col-md-5 col-md-offset-2 mt-5">
@@ -22,8 +16,8 @@ class OneBook extends Component {
                            
                         </tr>
                         <tr>
-                            <td>{title}</td>
-                            <td>{description}</td>
+                            <td>{this.props.title}</td>
+                            <td>{this.props.description}</td>
                         </tr>
                     </table>
                     <span><Link to={'/books/'}>Indexへ</Link> ｜ </span>
@@ -33,4 +27,4 @@ class OneBook extends Component {
     }
 }
 
-export default OneBook;
+export default connect(mapStateToProps)(OneBook);
