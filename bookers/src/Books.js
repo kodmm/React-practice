@@ -55,7 +55,7 @@ class Books extends Component {
                   {this.props.description}
                   <textarea 
                     id="description" 
-                    name={this.props.description}
+                    value={this.props.description}
                     onChange = {(e) => this.props.changeDescription(e.target.value)}
                     placeholder="description"
                   />
