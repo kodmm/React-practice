@@ -21,8 +21,8 @@ export function mapDispatchToProps(dispatch) {
         },
 
         //Delete a book
-        deleteBook: (text) => {
-            dispatch({type: 'DELETE_BOOK', text: text})
+        deleteBook: (BookId) => {
+            dispatch({type: 'DELETE_BOOK', id: BookId})
         }
 
     }

@@ -29,13 +29,13 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 description: action.description
-            }
+            };
             /* Delete book */
         case 'DELETE_BOOK':
 
             return {
                 ...state,
-                 Books: state.Books.filter(x => x !== action.text),
+                 Books: state.Books.filter(x => x.id !== action.id),
                  //localStorage.setItem("Books", JSON.stringify(Books))
             };
         
