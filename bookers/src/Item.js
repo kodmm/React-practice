@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class Item extends Component {
     
     render() {
+        console.log(this.props.Books)
         let books = [];
             this.props.Books.map(Book => (
                 books.push(

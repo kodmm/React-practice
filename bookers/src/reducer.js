@@ -39,6 +39,21 @@ export default function reducer(state = initialState, action) {
                  //localStorage.setItem("Books", JSON.stringify(Books))
             };
         
+        case 'UPDATE_BOOK':
+
+            return {
+                ...state,
+                Books: state.Books.map(b => {
+                    if (b.id === action.book.id) {
+                        console.log(b)
+                        b = action.book
+                        console.log(action.book)
+                        console.log(b)
+                    }
+                }),
+                title: "",
+                description: ""
+            };
         default:
             return state
 

@@ -23,6 +23,11 @@ export function mapDispatchToProps(dispatch) {
         //Delete a book
         deleteBook: (BookId) => {
             dispatch({type: 'DELETE_BOOK', id: BookId})
+        },
+
+        //Update a book
+        updateBook: (Book) => {
+            dispatch({type: 'UPDATE_BOOK', book: Book})
         }
 
     }
