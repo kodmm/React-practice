@@ -11,7 +11,7 @@ const EffectFunc = () => {
     useEffect(() => {
         document.title = `${count}回クリックされました。`
         console.log(`再レンダーされました`)
-    }, [])
+    }, [count])
 
     return(
         <>
