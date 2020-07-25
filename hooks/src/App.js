@@ -8,6 +8,7 @@ import useContext from './components/useContext';
 import ThemeContext from './components/ThemeContext';
 import Counter from './components/useReducer';
 import Counter2 from './components/useReducer_1';
+import useReducer_2 from './components/useReducer_2';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/ThemeContext/" component={ThemeContext} />
         <Route exact path="/useReducer/" component={Counter} />
         <Route exact path="/useReducer1/" component={Counter2} />
+        <Route exact path="/useReducer2/" component={useReducer_2} />
       </div>
     </BrowserRouter>
   );
