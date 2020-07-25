@@ -6,6 +6,10 @@ import EffectClass from './components/useEffect';
 import EffectFunc from './components/useEffect_1';
 import useContext from './components/useContext';
 import ThemeContext from './components/ThemeContext';
+import Counter from './components/useReducer';
+import Counter2 from './components/useReducer_1';
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +20,8 @@ function App() {
         <Route exact path="/EffectFunc/" component={EffectFunc} />
         <Route exact path="/useContext/" component={useContext} />
         <Route exact path="/ThemeContext/" component={ThemeContext} />
+        <Route exact path="/useReducer/" component={Counter} />
+        <Route exact path="/useReducer1/" component={Counter2} />
       </div>
     </BrowserRouter>
   );
