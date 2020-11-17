@@ -1,4 +1,4 @@
-FROM "node:13.8.0-alpine3.10"
+FROM "node:14.15.0-alpine3.10"
 # mount directory
 WORKDIR /usr/src/app
 RUN npm install --save prop-types

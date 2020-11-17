@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 import Books from './Books.js'
@@ -6,6 +6,7 @@ import OneBook from './OneBook.js'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducer.js'
+
 
 
 const store = createStore(reducer);
