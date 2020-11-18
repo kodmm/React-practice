@@ -22,9 +22,12 @@ class EditBook extends Component {
                                         id: this.props.Book.id,
                                         title: titleElement.value,
                                         description: descriptionElement.value,
-                                    })
+                                    });
+                                    titleElement.value = "";
+                                    descriptionElement.value = "";
+                                    
 
-                                    this.props.editMode()
+                                    this.props.editMode();
                                 }}
                     >
                     <table className="table">

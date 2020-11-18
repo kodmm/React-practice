@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class Item extends Component {
     
     render() {
-        console.log(this.props.Books)
+
         let books = [];
             this.props.Books.map(Book => (
                 books.push(
@@ -15,7 +15,7 @@ class Item extends Component {
                     <td>{Book.title}</td>
                     <td>{Book.description}</td>
                     <td><button className="btn-sm btn btn-danger" onClick={() => this.props.deleteBook(Book.id)}>Delete</button> | 
-                    <Link to={{pathname: '/books/' + Book.id, state:{Book}}}><button className="btn-sm btn btn-success">Show</button></Link></td>
+                    <Link to={{pathname: '/books/' + Book.id, state: {Book}}}><button className="btn-sm btn btn-success">Show</button></Link></td>
                 </tr>)
                 )
             )

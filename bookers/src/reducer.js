@@ -6,15 +6,19 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action) {
+    let  newBooks = [];
     switch(action.type) {
-      
+       
         /* To post a book */
         case 'POST_BOOK':
+            
+            newBooks = [...state.Books, action.text];
+            localStorage.setItem("Books", JSON.stringify(newBooks));
             return {
                 ...state,
                 title: "",
                 description: "",
-                Books: [...state.Books, action.text],
+                Books: newBooks,
                 id: state.id + 1, 
                 
             };
@@ -34,25 +38,32 @@ export default function reducer(state = initialState, action) {
             };
             /* Delete book */
         case 'DELETE_BOOK':
-
+            newBooks = state.Books.filter(x => x.id !== action.id);
+            localStorage.setItem("Books", JSON.stringify(newBooks));
             return {
                 ...state,
-                 Books: state.Books.filter(x => x.id !== action.id),
-                 //localStorage.setItem("Books", JSON.stringify(Books))
+                 Books: newBooks,
+                 
             };
         
         case 'UPDATE_BOOK':
-            console.log(action.book.id)
-            
+            console.log(state.Books);
+            newBooks = state.Books.map(book => {
+                console.log(typeof(book.id), typeof(action.book.id));
+                
+                if(book.id === action.book.id){
+                    
+                    book = action.book
+                }
+                return book
+            });
+            console.log("update");
+            console.log(state.Books);
+            console.log(newBooks);
+            localStorage.setItem("Books", JSON.stringify(newBooks));
             return {
                 ...state,
-                Books: state.Books.forEach((book, index) => {
-                    console.log(book.id)
-                    if(book.id === action.book.id){
-                        state.Books[index] = action.book
-                        console.log('updated' + state.Books[index]);
-                    }
-                }),
+                Books: newBooks,
                 title: "",
                 description: ""
             };

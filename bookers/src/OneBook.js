@@ -28,7 +28,7 @@ class OneBook extends Component {
             <div className="container row">
                 {this.state.isEdit
                     ? <EditBook  isEdit = {this.state.isEdit} Book = {this.props.location.state.Book} editMode = {this.editMode}/>
-                    : <ShowBook state = {this.props.location.state.Book}/>
+                    : <ShowBook Book_id = {this.props.location.state.Book.id - 1} Books = {this.props.Books} />
                 }
                 
                 <div>
@@ -43,6 +43,7 @@ class OneBook extends Component {
 
 class ShowBook extends Component {
     render() {
+        const book = this.props.Books[this.props.Book_id];
         return(
             
                 <div className="col-md-5 col-md-offset-2 mt-5">
@@ -57,9 +58,10 @@ class ShowBook extends Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{this.props.state.id}</td>
-                                <td>{this.props.state.title}</td>
-                                <td>{this.props.state.description}</td>
+                                
+                                <td>{book.id}</td>
+                                <td>{book.title}</td>
+                                <td>{book.description}</td>
                             </tr>
                         </tbody>
                         
