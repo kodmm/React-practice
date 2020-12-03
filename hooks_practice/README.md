@@ -68,3 +68,72 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+###### tags: `hooks_useEffect`
+
+### クリーンアップを有する副作用
+- 例えば何らかの外部のデータソースへの購読をセットアップしたい場合がある。その場合、メモリリークが発生しないようにクリーンアップが必要。
+ => componentWillUnmountのhooks version
+ 例：フレンドのオンライン状態を後続するChatAPIがあった場合
+ 
+ <font color="green">`classcomponent ver`</font>
+ ```
+class FriedStatus extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOnline: null
+        };
+        this.handleStatusChange = this.handleStatusChange.bind(this);
+    }
+    
+    componentDidMount() {
+        ChatAPI.subscribeToFriendStatus(
+            this.props.friend.id,
+            this.handleStatusChange
+        );
+    }
+    
+    componentDidUnmount() {
+        ChatAPI.unsubscribeFromFriendStatus(
+        this.props.friend.id,
+        this.handleStatusChange
+        );
+    }
+    
+    handleStatusChange(status) {
+        this.setState({
+            isOnline: status.isOnline
+        });
+    }
+}
+```
+*`componentDidMount`と`componentDidUnmount`が鏡のようになっていることに注意する。
+
+<font color="green">`hook ver`</font>
+
+```
+    import React, { useState, useEffect } from 'react';
+    function FriendStatus(props) {
+        const [count setCount] = useState(0);
+        useEffect（() => {
+             document.title = `You clicked ${this.state.count} times`;
+        }, [conunt]);
+        const [isOnline setIsOnline] = useState(null);
+        
+        useEffect(() => {
+            function handleStatusChange(status) {
+                setIsOnline(status.isOnline)
+            }
+            ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+            
+            return function cleanup() {
+                ChatAPI.unsubscribeToFriendStatus(props.friend.id, handleStatusChange)
+            }
+        },[props.friend.id])
+    }
+```
+
+副作用内から関数を返すことでクリーンアップ処理できる。
+useEffectを複数回呼ぶことも可能。
