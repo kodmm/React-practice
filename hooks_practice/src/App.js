@@ -9,6 +9,7 @@ import Music from './components/music.js';
 import React, {createContext, useState} from 'react';
 import './App.css';
 import Context from './components/ContextSample/ContextA.js';
+import Counter_reducer from './components/counter_reducer.js';
 
 //createContextを使いUserContextとHobbyCotextを作成
 export const UserContext = createContext()
@@ -40,6 +41,7 @@ function App() {
             <Route exact path="/Effect_hooks" component={Effect_hooks} />
             <Route exact path="/Music" component={Music} />
             <Route exact path="/Context" component={Context} />
+            <Route exact path="/counter_reducer" component={Counter_reducer} />
           </Switch>
           </HobbyContext.Provider>
         </UserContext.Provider>
