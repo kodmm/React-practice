@@ -10,7 +10,9 @@ import React, {createContext, useState} from 'react';
 import './App.css';
 import Context from './components/ContextSample/ContextA.js';
 import Counter_reducer from './components/counter_reducer.js';
-
+import Counter_reducer2 from './components/counter_reducer2';
+import Counter_reducer3 from './components/counter_reducer3';
+import Counter_reducer4 from './components/counter_reducer4';
 //createContextを使いUserContextとHobbyCotextを作成
 export const UserContext = createContext()
 export const HobbyContext = createContext()
@@ -42,6 +44,9 @@ function App() {
             <Route exact path="/Music" component={Music} />
             <Route exact path="/Context" component={Context} />
             <Route exact path="/counter_reducer" component={Counter_reducer} />
+            <Route exact path="/counter_reducer2" component={Counter_reducer2} />
+            <Route exact path="/counter_reducer3" component={Counter_reducer3} />
+            <Route exact path="/counter_reducer4" component={Counter_reducer4} />
           </Switch>
           </HobbyContext.Provider>
         </UserContext.Provider>
