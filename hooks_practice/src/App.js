@@ -47,6 +47,7 @@ function App() {
             <Route exact path="/counter_reducer2" component={Counter_reducer2} />
             <Route exact path="/counter_reducer3" component={Counter_reducer3} />
             <Route exact path="/counter_reducer4" component={Counter_reducer4} />
+            
           </Switch>
           </HobbyContext.Provider>
         </UserContext.Provider>
