@@ -5,9 +5,22 @@ import ArtistData from './artistdata.js';
 import '../styles/songs.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-const Songs = () => {
+import Backdrop from '@material-ui/core/Backdrop';
+import { Modal } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
+import { makeStyles } from '@material-ui/core/styles';
 
-    let [showPopup, setShowPopup] = useState(false)
+const useStyles = makeStyles(theme => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+}))
+
+const Songs = () => {
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
     const [artist, setArtist] = useState('');
     const [artistData, setArtistData] = useState([{
         trackId: '',
@@ -19,6 +32,9 @@ const Songs = () => {
         AlbumRelease: '',
         trackName: ''
     }])
+
+    const handleOpen = () => { setOpen(true) };
+    const handleClose = () => { setOpen(false) };
 
     async function itunesGet(params){
         try{
@@ -56,7 +72,26 @@ const Songs = () => {
     return (
         <Grid container className="songs">
             <Grid item md={5}>
-                <Button variant="outlined" color="primary" onClick={() => setShowPopup(!showPopup)} >Create Playlist</Button>
+                <Button variant="outlined" color="primary" onClick={handleOpen} >Create Playlist</Button>
+                <Modal
+                    aria-labelledby="transition-modal-form"
+                    aria-describedby="transition-modal-createPlaylist"
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={open}>
+                        <PlaylistForm />
+                        
+                    </Fade>
+                </Modal>
+                
+                    
             </Grid>
             <Grid item md={7}>
                 <form
@@ -102,13 +137,6 @@ const Songs = () => {
                 )
                 )}
                 </div>
-                {showPopup ?
-                    <PlaylistForm
-                        closePopup={setShowPopup}
-                        isPopup={showPopup}
-                    />
-                    : null
-                }
             </Grid> 
             
         </Grid>
