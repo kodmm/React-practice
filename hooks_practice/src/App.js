@@ -16,6 +16,7 @@ import Counter_reducer4 from './components/counter_reducer4';
 import CounterReactMemo from './components/counterReactMemo';
 import Counter_useCallback from './components/counter_useCallback';
 import Counter_useMemo from './components/counter_useMemo';
+import Text_useRef from './components/text_useRef';
 
 //createContextを使いUserContextとHobbyCotextを作成
 export const UserContext = createContext()
@@ -54,6 +55,7 @@ function App() {
             <Route exact path="/counter_react_memo" component={CounterReactMemo} />
             <Route exact path="/counter_useCallback" component={Counter_useCallback} />
             <Route exact path="/counter_useMemo" component={Counter_useMemo} />
+            <Route exact path="/text_useRef" component={Text_useRef} />
           </Switch>
           </HobbyContext.Provider>
         </UserContext.Provider>
