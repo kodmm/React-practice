@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/counter.css'
-
+import axios from 'axios'
 const Counter_hooks = () => {
     const initialState = Math.floor(Math.random() * 10) + 1
 
@@ -9,7 +9,9 @@ const Counter_hooks = () => {
     const [open, setOpen] = useState(true)
 
     const toggle = () => setOpen(!open)
-
+    
+    axios.get('https://www.metaweather.com/api/location/1118370/2021/03/02/')
+        .then(res => console.log(res.json))
     return (
         <>
             <button onClick={toggle}>{open ? 'close' : 'open'}</button>

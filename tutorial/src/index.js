@@ -1,7 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useHistory } from "react-router-dom";
 import './index.css';
+import { BrowserRouter, Route} from 'react-router-dom';
+import Login from './Login';
 
+function App() {
+  return (
+    <BrowserRouter>
+      <div>
+        <Route exact path="/" component={Game} />
+        <Route exact path="/login" component={Login} />
+        
+      </div>
+    </BrowserRouter>
+  );
+}
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -11,7 +25,7 @@ function Square(props) {
 }
   
   class Board extends React.Component {
-
+    
     renderSquare(i) {
       return(
         <Square
@@ -55,14 +69,28 @@ function Square(props) {
         }],
         stepNumber: 0,
         xIsNext: true,
+        name: ''
       };
+    }
+
+    
+    componentDidMount() {
+      const name = sessionStorage.getItem('Name');
+      if(name !== null){
+        this.setState({
+          name: name
+        });
+      }else {
+        this.props.history.push('/login')
+      }
+      
     }
 
     handleClick(i) {
       const history = this.state.history.slice(0, this.state.stepNumber + 1);
       const current = history[history.length - 1];
       const squares = current.squares.slice();
-      if (calculateWinner(squares) || squares[i]) {
+      if (calculateWinner(squares, this.state.name) || squares[i]) {
         return;
       }
       squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -85,7 +113,7 @@ function Square(props) {
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
-      const winner = calculateWinner(current.squares);
+      const winner = calculateWinner(current.squares, this.state.name);
 
       const moves = history.map((step, move) => {
         const desc = move ?
@@ -102,7 +130,7 @@ function Square(props) {
       if (winner){
         status = 'Winner player' + winner;
       }else{
-        status = 'Next player' + (this.state.xIsNext ? 'X': 'O');
+        status = 'Next player' + (this.state.xIsNext ? this.state.name: 'O');
       }
       return (
         <div className="game">
@@ -124,11 +152,11 @@ function Square(props) {
   // ========================================
   
   ReactDOM.render(
-    <Game />,
+    <App />,
     document.getElementById('root')
   );
   
-function calculateWinner(squares) {
+function calculateWinner(squares, name) {
   const lines = [
     [0, 1 ,2],
     [3, 4, 5],
@@ -142,7 +170,11 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      if (squares[a] === 'X') {
+        return name
+      }else{
+        return squares[a];
+      }
     }
   }
   return null;

@@ -2,6 +2,7 @@ version: '3'
 services:
         node:
                 build: .
+
                 tty: true
                 environment:
                     - NODE_ENV=production
@@ -9,4 +10,11 @@ services:
                 - ./:/usr/src/app
                 ports:
                 - "3000:3000"
+                networks:
+                 backend:
+                  ipv4_address: 172.30.0.2
+                container_name: node_react
 
+networks:
+ backend:
+   external: true
